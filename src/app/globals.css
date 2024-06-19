@@ -105,3 +105,16 @@ a {
     color-scheme: dark;
   }
 }
+
+.main {
+  background-color: whitesmoke;
+  background-image: url('/assets/background.svg');
+  background-position: center;
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+}

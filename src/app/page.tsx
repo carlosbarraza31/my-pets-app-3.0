@@ -1,94 +1,62 @@
+'use client';
+
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
+import originalStyles from "./page.module.css";
+import React from "react";
+import AnimalModal from "./AnimalModal";
+import { persistAnimal } from "../../app/lib/data";
+export interface animalEntry {
+  names: string,
+  lastName: string,
+  birthDate: string,
+  species: string,
+  profilePicture?: string | null,
+  [key: string]: string | null | undefined
+}
 
 export default function Home() {
+  const [openModal, setOpenModal] = React.useState(false);
+  const [modalAppearing, setModalAppearing] = React.useState(false);
+
+  async function persistAnimal(formData: animalEntry) {
+    var newEntry = {
+      names: formData['names'],
+      lastName: formData['lastName'],
+      birthDate: formData['birthDate'],
+      species: formData['species'],
+      profilePicture: formData['profilePicture'] ? URL.createObjectURL(formData['profilePicture'] as unknown as File) as string : null
+    }
+    const newAnimal = await persistAnimal(newEntry);
+    console.log(newAnimal);
+  }
+
+  function handleAddAnimal() {
+    setOpenModal(true);
+
+    setTimeout(() => {
+      setModalAppearing(true);
+    }, 100);
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className={originalStyles.main}>
+      <div className={styles.home_body}>
+        <Image src="/assets/mypets_icon.svg" width={96} height={96} alt="My Pets icon"></Image>
+        <div className={styles.home_body_title}>
+          Welcome to MyPets.
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <div className={styles.home_body_description}>
+          MyPets is the ultimate platform for managing data from the animals you care about. From dogs and cats, to even the most unique reptiles, birds or amphibians.
+        </div>
+        <button className={`${styles.home_body_petButton} ${styles.m_clickable_btn}`} onClick={handleAddAnimal}>
+          <div className={styles.home_body_petButton_text}>
+            Add your first animal
+          </div>
+          <Image className={styles.home_body_petButton_icon} src="/assets/arrow_circle_right.svg" width={20} height={20} alt="next arrow"></Image>
+        </button>
+        <AnimalModal openModal={openModal} setOpenModal={setOpenModal} modalAppearing={modalAppearing} setModalAppearing={setModalAppearing} persistAnimal={persistAnimal}>
+        </AnimalModal>
       </div>
     </main>
   );

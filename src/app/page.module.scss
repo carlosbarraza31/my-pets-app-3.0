@@ -1,0 +1,313 @@
+$font-main: #761CFF;
+$btn-main: #761CFF;
+$font-hover: #9A54FF;
+$font-title: #6300C1;
+$btn-hover: #B481FF;
+
+@mixin title-1 {
+    color: $font-title;
+    font-family: 'Lora', serif;
+    font-size: 84px;
+}
+
+@mixin title-2 {
+    color: $font-title;
+    font-size: 36px;
+}
+
+@mixin body-regular {
+    color: black;
+    font-size: 16px;
+}
+
+@mixin body-small {
+    color: black;
+    font-size: 14px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+.b_header {
+    background-color: whitesmoke;
+    color: $font-main;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px 16px;
+
+    &_list {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+    }
+
+    &_logo {
+        float: left;
+        font-family: "Suez One", serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    &_item {
+        display: flex;
+        float: right;
+        gap: 4px;
+        padding: 8px 24px;
+        vertical-align: middle;
+
+        &.m_alt {
+            background-color: #9A54FF;
+            border-radius: 8px;
+            color: whitesmoke;
+            padding: 8px 12px;
+        }
+    }
+
+    &_float_right {
+        margin-left: auto;
+    }
+}
+
+.title {
+    font-size: 48px;
+}
+
+.m_clickable {
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        color: $font-hover;
+        cursor: pointer;
+    }
+
+    &.m_alt {
+        &:hover {
+            background-color: $btn-hover;
+            color: whitesmoke;
+        }
+    }
+
+    &_btn {
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            background-color: $font-hover;
+            cursor: pointer;
+
+            .home_body_petButton_icon {
+                margin-left: 24px;
+            }
+        }
+    }
+
+    &_icon {
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            filter: brightness(180%);
+            cursor: pointer;
+        }
+    }
+}
+
+.home_body {
+    text-align: center;
+
+    &_title {
+        @include title-1();
+
+        margin-bottom: 16px;
+    }
+
+    &_description {
+        @include body-regular();
+
+        margin-bottom: 48px;
+        max-width: 80vw;
+    }
+
+    &_petButton {
+        @include body-regular();
+
+        background-color: $btn-main;
+        border: none;
+        border-radius: 16px;
+        color: whitesmoke;
+        display: inline-flex;
+        line-height: 20px;
+        padding: 12px 16px;
+
+        &_icon {
+            transition: all 0.2s ease-in-out;
+            margin-left: 12px;
+        }
+    }
+
+    &_modal {
+        background-color: whitesmoke;
+        border: none;
+        border-radius: 20px;
+        color: black;
+        margin: auto;
+        filter: opacity(0);
+        overflow: hidden;
+        padding: 24px 60px;
+        transition: all 0.2s ease-in-out;
+
+        &_close {
+            height: 20px;
+            margin: -10px -50px 8px auto;
+            width: 20px;
+        }
+
+        &_title {
+            @include title-2();
+
+            margin-bottom: 12px;
+        }
+
+        &_form {
+            float: left;
+            margin: 32px 24px 16px 0;
+            max-height: 40vh;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        &_input,
+        &_input_date {
+            @include body-small();
+
+            background-color: whitesmoke;
+            border: none;
+            border-bottom: 1px solid $font-title;
+            color-scheme: auto;
+            margin-right: 16px;
+            min-width: 220px;
+            padding: 8px 0;
+
+            &::placeholder {
+                transition: all 0.2s ease-in-out;
+            }
+
+            &:focus {
+                outline: none;
+
+                &::placeholder {
+                    font-size: 10px;
+                }
+            }
+
+            &.m_pointer {
+                cursor: pointer;
+            }
+
+            &_group {
+                display: flex;
+                margin: 32px 0;
+            }
+
+            &_label {
+                line-height: 40px;
+                margin-right: 16px;
+            }
+        }
+
+        &_input_date {
+            color: gray;
+
+            &::-webkit-calendar-picker-indicator {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            &.m-selected {
+                color: black;
+            }
+        }
+
+        &_input_file {
+            line-height: 40px;
+
+            &::file-selector-button {
+                @include body-small();
+
+                background-color: $btn-main;
+                border: none;
+                border-radius: 5px;
+                color: whitesmoke;
+                margin-right: 8px;
+                padding: 4px 8px;
+                transition: all 0.1s ease-in-out;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: $btn-hover;
+                }
+            }
+        }
+
+        &_checked_checkbox {
+            height: 0;
+            width: 0;
+
+            &::after {
+                content: url("/assets/check_icon.svg");
+                background-color: #761CFF;
+                border-radius: 5px;
+                display: inline-block;
+                height: 20px;
+                margin: 10px 0;
+                width: 20px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &_unchecked_checkbox {
+            height: 0;
+            width: 0;
+
+            &::after {
+                content: '';
+                background-color: whitesmoke;
+                border: 1px solid $font-title;
+                border-radius: 5px;
+                display: inline-block;
+                height: 20px;
+                margin: 10px 0;
+                width: 20px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &_submit {
+            @include body-regular();
+
+            background-color: $btn-main;
+            border: none;
+            border-radius: 16px;
+            color: whitesmoke;
+            display: inline-flex;
+            line-height: 20px;
+            margin: 24px 0 12px;
+            padding: 12px 16px;
+        }
+    }
+}
+
+.m_disappear {
+    filter: opacity(0);
+    transform: translateY(40px);
+}
+
+.m_appear {
+    filter: opacity(1);
+    transform: translateY(-40px);
+}
